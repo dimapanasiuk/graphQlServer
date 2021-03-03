@@ -1,4 +1,4 @@
-const { buildSchema } = require('graphql');
+const { buildSchema } = require("graphql");
 
 const schema = buildSchema(`
   type User {
@@ -31,6 +31,11 @@ const schema = buildSchema(`
     getAllUsers: [User]
     getUser(id: ID): User
   }
+
+  type Mutation {
+    createUser(input: UserInput) : User
+  }
+
 `);
 
 module.exports = schema;
