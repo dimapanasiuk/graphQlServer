@@ -1,32 +1,8 @@
 const express = require("express");
-const router = express.Router();
-
-const db = require("../db");
-
 const passport = require("passport");
-const Strategy = require("passport-local").Strategy;
+const pas = require("../login");
 
-passport.use(new Strategy(
-  function(username:any, password:any, cb:any) {
-    db.users.findByUsername(username, function(err:any, user:any) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (user.password != password) { return cb(null, false); }
-      return cb(null, user);
-    });
-  }));
-
-passport.serializeUser(function(user:any, cb:any) {
-  cb(null, user.id);
-});
-
-passport.deserializeUser(function(id:any, cb:any) {
-  db.users.findById(id, function (err:any, user:any) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
-});
-
+const router = express.Router();
 
 router.get("/",
   function(req:any, res:any) {
