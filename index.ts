@@ -1,10 +1,10 @@
 import express from "express";
-// const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const passport = require("passport");
 const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 
-const schema = require("./scheme");
+const schema = require("./schemeGraphQl");
 const routing = require("./routing");
 const { unHandledErrorMiddleware } = require("./middlewares");
 const { root }  =require("./scheme/root");
@@ -13,30 +13,18 @@ const PORT = 5000;
 
 const app = express();
 
+const {MongoClient} = require("mongodb");
+const client  = new MongoClient("mongodb+srv://Dima:Dima1995@cluster0.vqixf.mongodb.net/snDb?retryWrites=true&w=majority");
 
-async function main() {
-  const MongoClient = require("mongodb").MongoClient;
-  const uri ="mongodb+srv://Dima:Dima1995@cluster0.vyymm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-  });
-
+const start =  async () => {
   try {
-    client.connect((err: any) => {
-      const collection = client.db("test").collection("devices");
-      console.log({collection});
-      client.close();
-    });
-    console.log("db connect");
+    await client.connect();
+    console.log("connect is right");
   } catch (e) {
-    console.log("server error", e.message);
-    client.close(1);
+    console.log("=====💡🛑=====",e);
   }
-
-
-}
-main().catch(console.error);
-
+};
+start();
 
 app.use(unHandledErrorMiddleware); //for all endpoints which dosen't have try catch
 app.use(cors());
