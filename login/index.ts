@@ -1,5 +1,4 @@
 const db = require("../db");
-
 const pas = require("passport");
 const Strategy = require("passport-local").Strategy;
 
