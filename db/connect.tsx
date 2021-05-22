@@ -1,11 +1,18 @@
-const { MongoClient } = require("mongodb");
-const client  = new MongoClient("mongodb+srv://Dima:Dima1995@cluster0.vqixf.mongodb.net/snDb?retryWrites=true&w=majority");
 
-exports.start =  async () => {
+exports.start = async()=> { // could be simplify
+  const url  = "mongodb+srv://Dima:Dima1995@cluster0.nvpuu.mongodb.net/users?retryWrites=true&w=majority";
+
+  const mongoose = require("mongoose");
+
   try {
-    await client.connect();
-    console.log("connect is right");
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+    console.log("db connect");
   } catch (e) {
-    console.log("=====💡🛑=====",e);
+    console.log("server error", e.message);
+    process.exit(1);
   }
 };

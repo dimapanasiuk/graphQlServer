@@ -1,12 +1,10 @@
-const mongoose = require("mongoose");
-const findOrCreate = require("mongoose-findorcreate");
-
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const userScheme = new Schema(
   {
-    userName: String,
-    password: Array,
+    name: String,
+    password: String,
     email: String,
   },
   { versionKey: false }

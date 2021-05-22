@@ -4,6 +4,8 @@ const pas = require("../login");
 
 const router = express.Router();
 
+const User = require("../db/users/scheme");
+
 router.get("/",
   function(req:any, res:any) {
     res.render("home", { user: req.user });
@@ -31,5 +33,19 @@ router.get("/profile",
   function(req:any, res:any){
     res.render("profile", { user: req.user });
   });
+
+router.get("/test",(req:any, res:any)=> {
+  const user = new User({
+    name: "userName3",
+    password: "1234",
+    email: "test@ma2il.ru"
+  });
+
+  user.save((e: any) => {
+    if (e) return res.send({ data: "error" }); // [TODO: check does func go to next / because we have return ]
+  });
+
+  res.send("<h1>test</h1>");
+});
 
 module.exports = router;
