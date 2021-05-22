@@ -35,17 +35,23 @@ router.get("/profile",
   });
 
 router.get("/test",(req:any, res:any)=> {
-  const user = new User({
-    name: "userName3",
-    password: "1234",
-    email: "test@ma2il.ru"
+  // const user = new User({
+  //   name: "userName2",
+  //   password: "1234",
+  //   email: "test@ma2il.ru"
+  // });
+
+  User.find({}, (err : any, dogs: any) => {
+    if(err)  return console.log("errrrrrrrrrrrrrrrrrrrrrrrr",err);
+    console.log(dogs);
+    res.send(dogs);
   });
 
-  user.save((e: any) => {
-    if (e) return res.send({ data: "error" }); // [TODO: check does func go to next / because we have return ]
-  });
+  // user.save((e: any) => {
+  //   if (e) return res.send({ data: "error" }); // [TODO: check does func go to next / because we have return ]
+  // });
 
-  res.send("<h1>test</h1>");
+  // res.send("<h1>test</h1>");
 });
 
 module.exports = router;

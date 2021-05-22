@@ -1,3 +1,5 @@
+const User = require("../db/users/scheme");
+
 const users: any[] = [{ id: 1, username: "Masonovv", age: 25 }];
 
 const createUser = (input: any) => {
@@ -6,6 +8,10 @@ const createUser = (input: any) => {
 };
 
 export const root = {
+  findAllUser: () => User.find({}, (err : any, dogs: any) => {
+    if(err)  return console.log("errrrrrrrrrrrrrrrrrrrrrrrr",err);
+    return dogs;
+  }),
   getAllUsers: () => users,
   getUser: ({ id }: any): any => {
     return users.find(user => user.id === id);

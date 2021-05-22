@@ -8,6 +8,13 @@ const schema = buildSchema(`
     posts: [Post]
   }
 
+  type User2 {
+    _id: ID
+    name: String
+    email: String
+    password: String
+  }
+
   type Post {
     id: ID
     title: String
@@ -28,6 +35,7 @@ const schema = buildSchema(`
   }
 
   type Query {
+    findAllUser: [User2]
     getAllUsers: [User]
     getUser(id: ID): User
   }
