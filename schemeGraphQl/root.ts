@@ -1,6 +1,6 @@
 const User = require("../db/users/scheme");
 
-const users: any[] = [{ id: 1, username: "Masonovv", age: 25 }];
+const users: any[] = [{ id: 1, username: "Masonovv", age: 25 },{ id: 1, username: "Masonovv", age: 25 }];
 
 const createUser = (input: any) => {
   const id: number = Date.now();
@@ -16,9 +16,10 @@ export const root = {
   getUser: ({ id }: any): any => {
     return users.find(user => user.id === id);
   },
-  createUser: ({ input }: any) => {
-    const user = createUser(input);
-    users.push(user);
-    return user;
+  createUser: (test: any) => {
+    console.log({test});
+    // const user = createUser(input);
+    // users.push(user);
+    // return user;
   }
 };

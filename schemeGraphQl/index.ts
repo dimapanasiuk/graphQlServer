@@ -5,7 +5,7 @@ const schema = buildSchema(`
     id: ID
     username: String
     age: Int
-    posts: [Post]
+    password: String
   }
 
   type User2 {
@@ -25,13 +25,7 @@ const schema = buildSchema(`
     id: ID
     username: String!
     age: Int!
-    posts: [PostInput]
-  }
-
-  input PostInput {
-    id: ID
-    title: String!
-    content: String!
+    password: String!
   }
 
   type Query {
