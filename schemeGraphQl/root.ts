@@ -16,10 +16,10 @@ export const root = {
   getUser: ({ id }: any): any => {
     return users.find(user => user.id === id);
   },
-  createUser: (test: any) => {
-    console.log({test});
-    // const user = createUser(input);
-    // users.push(user);
-    // return user;
+  createUser: ({input}: any) => {
+    console.log({input});
+    const user = createUser(input);
+    users.push(user);
+    return user;
   }
 };
