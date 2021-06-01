@@ -13,6 +13,8 @@ const schema = buildSchema(`
     id: ID
     username: String
     age: Int
+    password: String
+    email: String
     posts: [Post]
   }
   type Post {
@@ -24,6 +26,8 @@ const schema = buildSchema(`
   input UserInput {
       id: ID
       username: String!
+      password: String
+      email: String
       age: Int!
       posts: [PostInput]
   }

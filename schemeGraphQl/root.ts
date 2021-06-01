@@ -16,10 +16,20 @@ export const root = {
   getUser: ({ id }: any): any => {
     return users.find(user => user.id === id);
   },
-  createUser: ({input}: any) => {
-    console.log({input});
-    const user = createUser(input);
-    users.push(user);
-    return user;
+  createUser: ({input}: any) =>
+  {
+    const {username, email, password} = input;
+
+    const user = new User({
+      name: username,
+      password,
+      email,
+    });
+
+    user.save((e: any) => {
+      if (e) return ({ data: "error" });
+    });
+
+    return {  ...input };
   }
 };
