@@ -1,8 +1,6 @@
 const User = require("../db/users/scheme");
-const bcrypt = require("bcrypt");
 const users: any[] = [{ id: 1, username: "Masonovv", age: 25 },{ id: 1, username: "Masonovv", age: 25 }];
 
-const salt = bcrypt.genSaltSync(10);
 
 const createUser = (input: any) => {
   const id: number = Date.now();
@@ -16,7 +14,11 @@ export const root = {
   }),
   getAllUsers: () => users,
   getUser: ({ id }: any): any => {
-    return users.find(user => user.id === id);
+    return users.find(user => user.id === +id);
+  },
+  getLoginData: ({input} :any) => {
+    const {username, password} = input;
+    return users.find(user => user. username ===  username);
   },
   createUser: ({input}: any) =>
   {
@@ -24,7 +26,7 @@ export const root = {
 
     const user = new User({
       name: username,
-      password: bcrypt.hashSync(password, salt),
+      password,
       email,
     });
 
