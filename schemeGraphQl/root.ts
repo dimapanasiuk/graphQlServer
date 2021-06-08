@@ -16,16 +16,17 @@ export const root = {
   getUser: ({ id }: any): any => {
     return users.find(user => user.id === +id);
   },
-  getLoginData: ({input} :any) => {
+  getLoginData: async ({input} :any) => {
     const {username, password} = input;
-    return users.find(user => user. username ===  username);
+    const data = await User.find({username, password});
+    return data?.[0];
   },
   createUser: ({input}: any) =>
   {
     const {username, email, password} = input;
 
     const user = new User({
-      name: username,
+      username,
       password,
       email,
     });
@@ -35,7 +36,8 @@ export const root = {
     });
 
     return {
-      name: username,
+      username,
+      password,
       email,
     };
   }
