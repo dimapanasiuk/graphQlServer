@@ -29,8 +29,7 @@ export const root = {
     const update = { todos }; //fix todos and todo
 
     const res = await User.findOneAndUpdate(filter, update, { new: true });
-    console.log(res);
-    return { input, res };
+    return res;
   },
   createUser: ({ input }: any) => {
     const { username, email, password, id } = input;
