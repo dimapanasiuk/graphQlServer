@@ -7,9 +7,9 @@ const schema = buildSchema(`
     age: Int
     password: String
     email: String
-    posts: [Post]
+    todos: [Todo]
   }
-  type Post {
+  type Todo {
       id: ID
       title: String
       content: String
@@ -20,12 +20,12 @@ const schema = buildSchema(`
       password: String
       email: String
       age: Int
-      posts: [PostInput]
+      todos: [TodoData]
   }
-  input PostInput {
+  input TodoData {
       id: ID
-      title: String!
-      content: String!
+      title: String
+      content: String
   }
   input LoginData {
     username: String!
@@ -38,6 +38,7 @@ const schema = buildSchema(`
   }
   type Mutation {
       createUser(input: UserInput): User
+      addNewTodo(input: UserInput): User
   }
 `);
 
