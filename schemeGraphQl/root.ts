@@ -1,37 +1,28 @@
-const User = require("../db/users/scheme");
-const users: any[] = [{ id: 1, username: "Masonovv", age: 25 }, { id: 1, username: "Masonovv", age: 25 }];
+const User = require("../db/users/scheme"); // TODO make this with import
 
-const createUser = (input: any) => {
-  const id: number = Date.now();
-  return { id, ...input };
-};
+import {
+  ICreateUser,
+  ICreateUserReturn,
+  ILoginData,
+  ILoginDataReturn,
+  IAddNewTodo
+} from "./types";
 
 export const root = {
-  findAllUser: () => User.find({}, (err: any, dogs: any) => {
-    if (err) return console.log("errrrrrrrrrrrrrrrrrrrrrrrr", err);
-    return dogs;
-  }),
-  getAllUsers: () => {
-    return users;
-  },
-  getUser: ({ id }: any): any => {
-    return users.find(user => user.id === +id);
-  },
-  getLoginData: async ({ input }: any) => {
+  getLoginData: async ({ input }: ILoginData | any) : Promise<undefined | ILoginDataReturn>   => {
     const { username, password } = input;
     const data = await User.find({ username, password });
     return data?.[0];
   },
-  addNewTodo: async ({ input }: any) => {
+  addNewTodo: async ({ input }: IAddNewTodo | any) : Promise<ILoginDataReturn> => {
     const { todos, username, id } = input;
-
-    const filter = { username };
-    const update = { todos }; //fix todos and todo
+    const filter : {username: string} = { username };
+    const update: {todos: Array<any>} = { todos };
 
     const res = await User.findOneAndUpdate(filter, update, { new: true });
     return res;
   },
-  createUser: ({ input }: any) => {
+  createUser: ({ input }: ICreateUser | any) : ICreateUserReturn => {
     const { username, email, password, id } = input;
     const user = new User({
       id,

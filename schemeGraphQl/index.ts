@@ -1,4 +1,4 @@
-const { buildSchema } = require("graphql");
+import { buildSchema } from "graphql";
 
 const schema = buildSchema(`
   type User {
@@ -32,8 +32,6 @@ const schema = buildSchema(`
     password: String!
   }
   type Query {
-      getAllUsers: [User]
-      getUser(id: ID): User
       getLoginData(input: LoginData): User
   }
   type Mutation {

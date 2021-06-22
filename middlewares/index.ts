@@ -1,14 +1,17 @@
+import { Request, Response, NextFunction } from "express";
+import { get } from "lodash";
+
 module.exports = ({
-  unHandledErrorMiddleware: (req: any, res: any, next: any) => {
+  unHandledErrorMiddleware: (req: Request, res: Response, next: NextFunction) => {
     try {
       next();
     } catch(e) {
-      return res.status(500).send("Unhandled error", e.message);
+      return res.status(500).send(`Unhandled error ${e.message}`, );
     }
   },
-  checkId: (req: any, res: any, next: any) => {
+  checkId: (req: Request, res: Response, next: NextFunction) => {
     try {
-      if(!req._id) throw new Error("no _id");
+      if(! get(req, "_id")) throw new Error("no _id");
       next();
     } catch(e) {
       return res.status(500).send(e.message);
