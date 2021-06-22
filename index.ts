@@ -1,34 +1,18 @@
-import express from "express";
+import express, { Application } from "express";
+import  { graphqlHTTP } from "express-graphql";
+const cors = require("cors"); // [TODO:STAS] how to make this with import
 
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./scheme");
-const cors = require("cors");
-const app = express();
+const db = require("./db"); // [TODO:STAS] how to make this with import
+import schema from "./schemeGraphQl";
+const { unHandledErrorMiddleware } = require("./middlewares"); // [TODO:STAS] how to make this with import
+import { root } from "./schemeGraphQl/root";
 
-const PORT = 5000;
+const PORT: number = 5000;
 
-const basicStr = "Node TS app!";
-const users: any[] = [{ id: 1, username: "Masonovv", age: 25 }];
+const app: Application = express();
 
-const createUser = (input: any) => {
-  const id: number = Date.now();
-  return { id, ...input };
-};
-
-const root = {
-  getAllUsers: () => users,
-  getUser: ({ id }: any): any => {
-    return users.find(user => user.id === id);
-  },
-  createUser: ({ input }: any) => {
-    const user = createUser(input);
-    users.push(user);
-    return user;
-  }
-};
-
+app.use(unHandledErrorMiddleware); //for all endpoints which dosen't have try catch
 app.use(cors());
-
 app.use("/graphql", graphqlHTTP(
   {
     graphiql: true,
@@ -37,9 +21,11 @@ app.use("/graphql", graphqlHTTP(
   }
 ));
 
-app.get("/", (req, res) => {
-  res.send(basicStr);
-});
+db.connect.start();
+
+app.use(require("morgan")("combined"));
+app.use(require("body-parser").urlencoded({ extended: true }));
+app.use(require("express-session")({ secret: "keyboard cat", resave: false, saveUninitialized: false }));
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
