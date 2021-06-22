@@ -1,9 +1,8 @@
 
+import mongoose from "mongoose";
+const url  = "mongodb+srv://Dima:Dima1995@cluster0.nvpuu.mongodb.net/users?retryWrites=true&w=majority";
+
 exports.start = async() : Promise<void> => {
-  const url  = "mongodb+srv://Dima:Dima1995@cluster0.nvpuu.mongodb.net/users?retryWrites=true&w=majority";
-
-  const mongoose = require("mongoose");
-
   try {
     await mongoose.connect(url, {
       useNewUrlParser: true,
@@ -16,3 +15,4 @@ exports.start = async() : Promise<void> => {
     process.exit(1);
   }
 };
+

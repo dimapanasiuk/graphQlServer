@@ -40,4 +40,4 @@ const schema = buildSchema(`
   }
 `);
 
-module.exports = schema;
+export default schema;
